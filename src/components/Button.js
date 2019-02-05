@@ -15,15 +15,18 @@ export default class Button extends Component {
   // static contextType = LanguageContext; -- we don't need this if we use a consumer instead to access the context
 
   renderButton(color) {
+    // ({ language }) destructures out the language from the context
     return (
       <BaseButton color={color}>
-        <LanguageContext.Consumer>{value => this.renderSubmit(value)}</LanguageContext.Consumer>
+        <LanguageContext.Consumer>
+          {({ language }) => this.renderSubmit(language)}
+        </LanguageContext.Consumer>
       </BaseButton>
     );
   }
   // WE USE CONSUMER WHENEVER WE WANT TO GET INFORMATION FROM MORE THAN ONE CONTEXT
-  renderSubmit(value) {
-    return value === 'english' ? 'Submit' : 'Voorleggen';
+  renderSubmit(language) {
+    return language === 'english' ? 'Submit' : 'Voorleggen';
   }
   render() {
     // const text = this.context === 'english' ? 'Submit' : 'Voorleggen';
